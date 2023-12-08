@@ -13,6 +13,11 @@ TUTORIALS
 
 *CONSUME API LOCAL
 1. (GALLERY)   : localhost:3000/gallery
+ - judul
+ - deskripsi
+ - pencipta
+ - tanggal_cipta
+ - gambar_gallery  
 2. (KEGIATAN)  : on proccess
 3. (AUTH)      : on process
 
