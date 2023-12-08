@@ -12,7 +12,7 @@ TUTORIALS
 2. import database yang sudah tersedia
 
 *CONSUME API LOCAL
-(GALLERY)   : localhost:3000/gallery
-(KEGIATAN)  : on proccess
-(AUTH)      : on process
+1. (GALLERY)   : localhost:3000/gallery
+2. (KEGIATAN)  : on proccess
+3. (AUTH)      : on process
 
