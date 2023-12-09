@@ -59,27 +59,70 @@ exports.updateKegiatan = asyncHandler (async (req, res) => {
         //req params & body
         const idParams = req.params.id
         const {judul, description, alamat, tanggal, waktu} = req.body; 
-})
-exports.deleteKegiatan = async (req, res) => {
 
-        const id = req.params.id
-        const idKegiatan = await kegiatan.findByPk(id)
+        const detailKegiatan = await kegiatan.findByPk(idParams);
 
-        if(!idKegiatan) {
-            return res.status(404).json({
-                status: 'Fail',
-                error: 'Id tidak ditemukan'
-            })
+        if(!detailKegiatan) {
+            res.status(404)
+            throw new Error('Kegiatan ID tidak ditemukan')
         }
 
-        await kegiatan.destroy({
-            where: {
-                id
-            }
-        });
+        const file = req.file
+
+        if(file) {
+            const nameImage = detailKegiatan.gambar_kegiatan.replace(`${req.protocol}://${req.get('host')}/public/uploads/`,'')
+
+            const filePath = `src/public/uploads/${nameImage}`
+
+            fs.unlink(filePath, (err) => {
+                if(err){
+                    res.status(400)
+                    throw new Error('File tidak ditemukan')
+                }
+            })
+
+            const fileName = file.filename
+            const pathFile = `${req.protocol}://${req.get('host')}/public/uploads/${fileName}`
+            detailKegiatan.gambar_kegiatan = pathFile
+        }
+
+        detailKegiatan.judul = judul || detailKegiatan.judul
+        detailKegiatan.description = description || detailKegiatan.description
+        detailKegiatan.alamat = alamat || detailKegiatan.alama
+        detailKegiatan.tanggal = tanggal || detailKegiatan.tanggal
+        detailKegiatan.waktu = waktu || detailKegiatan.waktu
+
+        detailKegiatan.save();
 
         return res.status(200).json({
-            status: 'Success',
-            message: `Data dengan ID ${id} berhasil dihapus`
+            message: 'berhasil update kegiatan',
+            data: detailKegiatan
         })
-}
+})
+exports.deleteKegiatan = asyncHandler (async (req, res) => {
+
+    const idParams = req.params.id
+    const detailKegiatan = await kegiatan.findByPk(idParams)
+
+    if(detailKegiatan) {
+        //ambil file gambar lama
+        const nameImage = detailKegiatan.gambar_kegiatan.replace(`${req.protocol}://${req.get('host')}/public/uploads/`,'')
+        //tempat file gambar lama
+        const filePath = `src/public/uploads/${nameImage}`
+
+        //fungsi hapus
+        fs.unlink(filePath, (err) => {
+            if(err){
+                res.status(400)
+                throw new Error('File tidak ditemukan')
+            }
+        })
+        detailKegiatan.destroy()
+        return res.status(200).json({
+            message: 'Data berhasil dihapus'
+        })
+    } else {
+        res.status(404);
+        throw new Error('Kegiatan ID tidak ditemukan')
+    }
+})

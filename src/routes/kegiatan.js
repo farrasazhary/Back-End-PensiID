@@ -16,7 +16,7 @@ router.get('/:id', getKegiatanById)
 router.post('/', uploadOption.single('gambar_kegiatan'), createKegiatan);
 
 //UPDATE DATA
-router.put('/:id', updateKegiatan);
+router.put('/:id', uploadOption.single('gambar_kegiatan'), updateKegiatan);
 
 //DELETE DATA
 router.delete('/:id', deleteKegiatan);

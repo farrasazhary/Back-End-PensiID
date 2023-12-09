@@ -14,21 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   gallery.init({
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
-    },
     judul: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: {
-        args: true,
-        msg: 'Nama kegiatan sudah ada'
-      },
       validate: {
         notNull: {
-          msg: 'Judul harus diisi'
+          msg: 'Judul tidak boleh kosong'
         }
       }
     },
@@ -37,21 +28,24 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Deskripsi harus diisi'
+          msg: 'Deskripsi tidak boleh kosong'
         }
       }
     },
-
     pencipta: {
       type: DataTypes.STRING,
+      allowNull: true,
     },
-    tanggal_cipta: DataTypes.STRING,
+    tanggal_cipta: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
     gambar_gallery: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Gambar harus diisi'
+          msg: 'Gambar tidak boleh kosong'
         }
       }
     }

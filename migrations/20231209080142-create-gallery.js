@@ -5,14 +5,12 @@ module.exports = {
     await queryInterface.createTable('galleries', {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4
+        type: Sequelize.INTEGER
       },
       judul: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
+        type: Sequelize.STRING
       },
       deskripsi: {
         type: Sequelize.TEXT
@@ -21,11 +19,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       tanggal_cipta: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       gambar_gallery: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
