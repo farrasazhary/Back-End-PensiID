@@ -1,92 +1,64 @@
+const asyncHandler = require('../middleware/asyncHandle')
 const { kegiatan } = require('../../models')
-const asyncHandle = require('../middleware/asyncHandle')
+const fs = require('fs')
 
-exports.getAllKegiatan = async (req, res) => {
-    try {
+exports.createKegiatan = asyncHandler(async (req, res) => {
+    const {judul, description, alamat, tanggal, waktu} = req.body;
+
+    const file = req.file;
+    //validasi jika input tidak ada
+    if(!file) {
+        res.status(400)
+        throw new Error('Tidak ada file image yang diinput')
+    }
+
+    const fileName = file.filename
+    const pathFile = `${req.protocol}://${req.get('host')}/public/uploads/${fileName}`
+
+    const newKegiatan = await kegiatan.create({
+        judul,
+        description,
+        alamat,
+        tanggal,
+        waktu,
+        gambar_kegiatan: pathFile
+    })
+
+    return res.status(200).json({
+        status: 'Success',
+        data: newKegiatan
+    })
+})
+
+
+exports.getAllKegiatan = asyncHandler(async (req, res) => {
         const kegiatans = await kegiatan.findAll();
 
         return res.status(200).json({
-            status: 'Success',
+            status: 'Success get all datas',
             data: kegiatans
         })
-    } catch (error) {
-        return res.status(500).json({
-            status: 'Fail',
-            error: 'Server down'
-        })
-    }
-}
+})
 
-exports.getKegiatanById = async (req, res) => {
-    
-    try {
+exports.getKegiatanById = asyncHandler(async (req, res) => {
         const id = req.params.id
         const detailKegiatan = await kegiatan.findByPk(id);
 
         if(!detailKegiatan) {
-            return res.status(404).json({
-                status: 'Fail',
-                error: 'Data id tidak ditemukan'
-            })
+            res.status(404)
+            throw new Error('Kegiatan ID tidak ditemukan')
         }
 
         return res.status(200).json({
-            status: 'Success',
+            status: 'Success get kegiatan by ID',
             data: detailKegiatan
         })
-    } catch (error) {
-        return res.status(500).json({
-            status: 'Fail',
-            error: 'Server down'
-        })
-    }
-}
-
-exports.createKegiatan = asyncHandle (async (req, res) => {
-    
-
-        const {judul, description, alamat, tanggal, waktu} = req.body;
-        const newKegiatan = await kegiatan.create({
-            judul,
-            description,
-            alamat,
-            tanggal,
-            waktu
-        })
-
-        res.status(201).json({
-            status: 'Success',
-            data: newKegiatan
-        })
-
 })
 
-exports.updateKegiatan = asyncHandle (async (req, res) => {
-
-        const id = req.params.id
-        await kegiatan.update(req.body, {
-            where: {
-                id: id
-            }
-        });
-        const newKegiatan = await kegiatan.findByPk(id);
-
-        if(!newKegiatan) {
-            res.status(404);
-            throw new Error('Kegiatan tidak ditemukan')
-        }
-
-        // if(!newKegiatan) {
-        //     return res.status(404).json({
-        //         status: 'Fail',
-        //         error: 'Data id tidak ditemukan'
-        //     })
-        // }
-
-        return res.status(200).json({
-            status: 'Success',
-            data: newKegiatan   
-        })
+exports.updateKegiatan = asyncHandler (async (req, res) => {
+        //req params & body
+        const idParams = req.params.id
+        const {judul, description, alamat, tanggal, waktu} = req.body; 
 })
 exports.deleteKegiatan = async (req, res) => {
 

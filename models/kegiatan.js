@@ -23,10 +23,51 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    description: DataTypes.TEXT,
-    alamat: DataTypes.STRING,
-    tanggal: DataTypes.STRING,
-    waktu: DataTypes.STRING,
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Deskripsi harus diisi'
+        }
+      }
+    },
+    alamat: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Alamat harus diisi'
+        }
+      }
+    },
+    tanggal: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Tanggal harus diisi'
+        }
+      }
+    },
+    waktu: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Waktu harus diisi'
+        }
+      }
+    },
+    gambar_kegiatan: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Gambar harus diisi'
+        }
+      }
+    }
 
   },
   {

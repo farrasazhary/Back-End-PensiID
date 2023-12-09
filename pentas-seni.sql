@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 08, 2023 at 10:53 PM
+-- Generation Time: Dec 09, 2023 at 06:13 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -64,16 +64,16 @@ CREATE TABLE `kegiatans` (
   `tanggal` varchar(255) DEFAULT NULL,
   `waktu` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
+  `updatedAt` datetime NOT NULL,
+  `gambar_kegiatan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `kegiatans`
 --
 
-INSERT INTO `kegiatans` (`id`, `judul`, `description`, `alamat`, `tanggal`, `waktu`, `createdAt`, `updatedAt`) VALUES
-(5, 'Sepatu Kaca', 'Lorem cek satu dua tiga cek cek cek ada suara ga cek cek satu cek satu', 'Tangsel', '2023-12-12', '12.00 WIB', '2023-12-08 15:51:03', '2023-12-08 15:51:03'),
-(7, 'Kuda Lumping Ngesot', 'Lorem cek satu dua tiga cek cek cek ada suara ga cek cek satu cek satu', 'Tangsel', '2023-12-12', '12.00 WIB', '2023-12-08 17:00:05', '2023-12-08 18:00:53');
+INSERT INTO `kegiatans` (`id`, `judul`, `description`, `alamat`, `tanggal`, `waktu`, `createdAt`, `updatedAt`, `gambar_kegiatan`) VALUES
+(9, 'Perang Ketupat', 'Salah satu tradisi dari Kepulauan Bangka Belitung yang tak kalah menarik ialah perang ketupat atau ruah tempilang. Tradisi ini diselenggarakan setiap masuk Tahun Baru Islam atau 1 Muharram. Para penduduk setempat akan berbondong-bondong menuju ke pantai. Saat meriam dinyalakan, para penduduk dapat saling melempar ketupat ke setiap orang yang mereka temui. Kamu dapat melihat tradisi ini di desa-desa sekitar Pantai Tempilang, Bangka Barat. Tak sedikit banyak perantau yang pulang dan wisatawan yang berdatangan untuk menonton tradisi ini.', 'Tempilang, Bangka Barat', '2023-12-12', '12.00 WIB', '2023-12-09 04:41:34', '2023-12-09 04:41:34', 'http://localhost:3000/public/uploads/gambar_kegiatan-1702096894797.jpeg');
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,8 @@ CREATE TABLE `sequelizemeta` (
 
 INSERT INTO `sequelizemeta` (`name`) VALUES
 ('20231208143903-create-kegiatan.js'),
-('20231208170943-create-gallery.js');
+('20231208170943-create-gallery.js'),
+('20231209022251-kegiatan.js');
 
 --
 -- Indexes for dumped tables
@@ -125,7 +126,7 @@ ALTER TABLE `sequelizemeta`
 -- AUTO_INCREMENT for table `kegiatans`
 --
 ALTER TABLE `kegiatans`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

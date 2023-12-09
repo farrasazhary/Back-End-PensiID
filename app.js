@@ -14,10 +14,10 @@ const path = require('path')
 
 //Midleware
 app.use(express.json())
+app.use(cors())
 
 app.use(express.urlencoded({extended:true}))
 app.use(morgan('dev'))
-app.use(cors())
 app.use('/public/uploads', express.static(path.join(__dirname, 'src/public/uploads')))
 
 //Routing

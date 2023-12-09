@@ -33,6 +33,7 @@ exports.getAllGallery = asyncHandler(async (req, res) => {
     const galleries = await gallery.findAll()
 
     return res.status(200).json({
+        status: 'Success',
         data: galleries
     })
 })
