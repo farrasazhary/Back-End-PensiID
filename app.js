@@ -7,6 +7,7 @@ const PORT = process.env.PORT;
 
 const KegiatanRoutes = require('./src/routes/kegiatan')
 const GalleryRoutes = require('./src/routes/gallery')
+const AuthRoutes = require('./src/routes/AuthRouter')
 
 const morgan = require('morgan')
 const {errorHandler, notFound} = require('./src/middleware/errorMiddleware')
@@ -23,6 +24,7 @@ app.use('/public/uploads', express.static(path.join(__dirname, 'src/public/uploa
 //Routing
 app.use('/kegiatan', KegiatanRoutes)
 app.use('/gallery', GalleryRoutes)
+app.use('/auth', AuthRoutes)
 app.use(notFound)
 app.use(errorHandler)
 
