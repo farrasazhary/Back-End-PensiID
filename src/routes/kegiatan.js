@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { getAllKegiatan, createKegiatan, getKegiatanById, updateKegiatan, deleteKegiatan } = require('../controller/kegiatan');
-const {uploadOption} = require('../utils/fileUpload')
+const { authMiddleware,permissionUser } = require('../middleware/UserMiddleware')
+const { uploadOption } = require('../utils/fileUpload')
 
 const multer = require('multer')
 const mulParse = multer()
@@ -13,7 +14,7 @@ router.get('/', getAllKegiatan);
 router.get('/:id', getKegiatanById)
 
 //CREATE DATA
-router.post('/', uploadOption.single('gambar_kegiatan'), createKegiatan);
+router.post('/', uploadOption.single('gambar_kegiatan'), authMiddleware, createKegiatan);
 
 //UPDATE DATA
 router.put('/:id', uploadOption.single('gambar_kegiatan'), updateKegiatan);
