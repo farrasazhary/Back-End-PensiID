@@ -9,7 +9,7 @@ TUTORIALS
 
 *DATABASE
 1. buat database baru di phpMyAdmin dengan nama "pentas-seni"
-2. import database yang sudah tersedia
+2. import database jalankan melalui terminal dengan perintah (npx sequelize-cli db:migrate)
 
 *CONSUME API LOCAL
 1. (GALLERY)   : localhost:3000/gallery
@@ -17,7 +17,23 @@ TUTORIALS
  - deskripsi
  - pencipta
  - tanggal_cipta
- - gambar_gallery  
-2. (KEGIATAN)  : on proccess
-3. (AUTH)      : on process
+ - gambar_gallery
 
+2. (KEGIATAN)  : localhost:3000/kegiatan
+ - judul
+ - description
+ - alamat
+ - tanggal
+ - waktu
+ - gambar_kegiatan
+
+3. (USER)      
+ - name
+ - email
+ - handphone
+ - alamat
+ - password
+
+4. (REGISTER)   : localhost:3000/auth/register  "POST" 
+5. (LOGIN)      : localhost:3000/auth/login     "POST"
+6. (LOGOUT)     : localhost:3000/auth/logout    "DELETE"
