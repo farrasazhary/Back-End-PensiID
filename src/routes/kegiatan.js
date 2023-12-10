@@ -20,6 +20,6 @@ router.post('/', uploadOption.single('gambar_kegiatan'), authMiddleware, createK
 router.put('/:id', uploadOption.single('gambar_kegiatan'), updateKegiatan);
 
 //DELETE DATA
-router.delete('/:id', deleteKegiatan);
+router.delete('/:id', authMiddleware, deleteKegiatan);
 
 module.exports = router;

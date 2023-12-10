@@ -4,9 +4,11 @@ const { user } = require('../../models')
 exports.authMiddleware = async (req, res, next) => {
     //fungsi jika pada header kita masukkan token atau tidak
     let token
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-        token = req.headers.authorization.split(' ')[1]
-    }
+    // if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    //     token = req.headers.authorization.split(' ')[1]
+    // }
+
+    token = req.cookies.jwt
 
     if(!token) {
         return next(res.status(401).json({

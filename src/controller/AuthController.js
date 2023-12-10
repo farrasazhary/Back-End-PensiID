@@ -6,6 +6,28 @@ const signToken = id => {
     })
 }
 
+const createSendToken = (user, statusCode, res) => {
+    const token = signToken(user.id)
+
+    const cookieOption = {
+        expire: new Date(
+            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: true
+    }
+
+    res.cookie('jwt', token, cookieOption)
+
+    user.password = undefined
+
+    res.status(statusCode).json({
+        status: 'Success',
+        data: {
+            user
+        }
+    })
+}
+
 exports.registerUser = async(req, res) => {
     try {
         // if(password != passwordConfirm) {
@@ -22,18 +44,25 @@ exports.registerUser = async(req, res) => {
             password: req.body.password
         })
 
-        const token = signToken(newUser.id)
+        // const token = signToken(newUser.id)
 
-        return res.status(201).json({
-            message: 'Berhasil registrasi',
-            token,
-            data: newUser
-        })
+        // return res.status(201).json({
+        //     message: 'Berhasil registrasi',
+        //     token,
+        //     data: newUser
+        // })
+
+        createSendToken(newUser, 201, res)
     } catch (error) {
+        // return res.status(400).json({
+        //     message: 'Validasi Error',
+        //     error: error.errors.map(err => err.message)
+        // })
         return res.status(400).json({
             message: 'Validasi Error',
-            error: error.errors.map(err => err.message)
-        })
+            error: error && error.errors ? error.errors.map(err => err.message) : 'Unknown Error'
+        });
+        
     }
 }
 
@@ -59,10 +88,23 @@ exports.loginUser = async(req, res) => {
     }
 
     //tampil token ketika berhasil login
-    const token = signToken(userData.id)
-    return res.status(200).json({
-        status: 'Success',
-        message: 'Login Berhasil',
-        token
+    // const token = signToken(userData.id)
+    // return res.status(200).json({
+    //     status: 'Success',
+    //     message: 'Login Berhasil',
+    //     token
+    // })
+
+    createSendToken(userData, 200, res)
+}
+
+exports.logoutUser = async(req, res) => {
+    res.cookie('jwt', '', {
+        httpOnly: true,
+        expires: new Date(0)
+    })
+
+    res.status(200).json({
+        message:'Logout berhasil'
     })
 }

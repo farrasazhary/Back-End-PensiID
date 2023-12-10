@@ -20,6 +20,6 @@ router.get('/:id', getGalleryById)
 router.put('/:id', uploadOption.single('gambar_gallery'), updateGallery)
 
 //DELETE GALLERY
-router.delete('/:id', deleteGallery)
+router.delete('/:id', authMiddleware, deleteGallery)
 
 module.exports = router;
