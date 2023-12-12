@@ -14,12 +14,12 @@ router.get('/', getAllKegiatan);
 router.get('/:id', getKegiatanById)
 
 //CREATE DATA
-router.post('/', uploadOption.single('gambar_kegiatan'), authMiddleware, createKegiatan);
+router.post('/', uploadOption.single('gambar_kegiatan'), createKegiatan);
 
 //UPDATE DATA
 router.put('/:id', uploadOption.single('gambar_kegiatan'), updateKegiatan);
 
 //DELETE DATA
-router.delete('/:id', authMiddleware, deleteKegiatan);
+router.delete('/:id', deleteKegiatan);
 
 module.exports = router;

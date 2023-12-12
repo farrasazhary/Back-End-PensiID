@@ -8,7 +8,7 @@ const multer = require('multer')
 const mulParse = multer()
 
 //ADD PRODUCT
-router.post('/', uploadOption.single('gambar_gallery'), authMiddleware, addGallery)
+router.post('/', uploadOption.single('gambar_gallery'), addGallery)
 
 //GET ALL GALLERY
 router.get('/', getAllGallery)
@@ -20,6 +20,6 @@ router.get('/:id', getGalleryById)
 router.put('/:id', uploadOption.single('gambar_gallery'), updateGallery)
 
 //DELETE GALLERY
-router.delete('/:id', authMiddleware, deleteGallery)
+router.delete('/:id', deleteGallery)
 
 module.exports = router;
