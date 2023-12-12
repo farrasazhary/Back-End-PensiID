@@ -24,12 +24,13 @@ app.use(morgan('dev'))
 app.use('/public/uploads', express.static(path.join(__dirname, 'src/public/uploads')))
 
 //Routing
+app.use('/', KegiatanRoutes)
 app.use('/kegiatan', KegiatanRoutes)
 app.use('/gallery', GalleryRoutes)
 app.use('/auth', AuthRoutes)
 app.use(notFound)
 app.use(errorHandler)
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server berhasil berjalan di ${PORT}`)
 })

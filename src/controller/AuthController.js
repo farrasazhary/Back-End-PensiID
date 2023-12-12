@@ -108,3 +108,30 @@ exports.logoutUser = async(req, res) => {
         message:'Logout berhasil'
     })
 }
+
+exports.getUserById = async(req, res) => {
+    const currentUser = await user.findByPk(req.user.id)
+
+    if(currentUser) {
+        return res.status(200).json({
+            id: currentUser.id,
+            name: currentUser.name,
+            handphone: currentUser.handphone,
+            email: currentUser.email,
+            alamat: currentUser.alamat
+        })
+    }
+
+    return res.status(404).json({
+        message: 'User not found'
+    })
+}
+
+exports.getAllUser = async (req, res) => {
+    const users = await user.findAll()
+
+    return res.status(200).json({
+        status: 'Success',
+        data: users
+    })
+}
